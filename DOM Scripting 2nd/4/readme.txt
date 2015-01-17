@@ -7,3 +7,15 @@ element.attribute = value;
 文本节点的nodeType属性值是3
 
 <p>的文本值并不是nodeValue，而是p.firstChild.nodeValue
+
+getElementById
+getElementByTagName
+getElementByClassName
+getAttribute
+setAttribute
+
+childNodes
+nodeType
+nodeValue
+firstChild
+lastChild

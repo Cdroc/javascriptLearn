@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script type="text/javascript" src="5.js">
+		</script>
+	</head>
+	<body>
+		<a id="a1" href="javascript:popUp('http://www.example.com/');">Example</a>
+		<a id="a2" href="#" onclick="popUp('http://www.example.com/'); return false;">onclick</a>
+		<a id="a3" href="http://www.example.com/" onclick="popUp(this.getAttribute('href'); return false;">getAttribute</a>
+		<a id="a4" href="http://www.example.com/" onclick="popUp(this.href; return false;">this.href</a>
+		<a id="a5" href="http://www.example.com/" class="popUp">class</a>
+	</body>
+</html>
