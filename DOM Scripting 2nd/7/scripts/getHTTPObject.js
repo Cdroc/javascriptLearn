@@ -9,6 +9,6 @@ function getHTTPObject() {
 			catch (e){}
 			return false;
 		}
-		return new XMLHttpRequest();
 	}
+	return new XMLHttpRequest();
 }

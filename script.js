@@ -21,18 +21,35 @@ function insertAfter(newElement, targetElement) {
 	}
 }
 
-// 获取XMLHttpRequest
-function getHTTPObject() {
-	if (typeof XMLHttpRequest == "undefined") {
-		XMLHttpRequest = function() {
-			try{ return new ActiveXObject("Msxml2.XMLHTTP.6.0"); }
-			catch (e){}
-			try{ return new ActiveXObject("Msxml2.XMLHTTP.3.0"); }
-			catch (e){}
-			try{ return new ActiveXObject("Msxml2.XMLHTTP"); }
-			catch (e){}
-			return false;
+// ajax请求
+function ajax(url, fnSucc, fnFaild) {
+	// 1.创建Ajax对象
+	var oAjax = null;
+	if (window.XMLHttpRequest) { // 或者写成if(typeof XMLHttpRequest) // 兼容IE6
+		// XMLHttpRequest在IE6中被当成未定义的变量，会报错
+		// window.XMLHttpRequest在IE6中被当成未定义的属性，会返回undefined
+		// 非IE6
+		oAjax = new XMLHttpRequest();
+	} else {
+		// IE6
+		oAjax = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	// 2.连接服务器
+	// open(方法，文件名，异步传输)
+	oAjax.open("GET", url, true); 
+	// 3.发送请求
+	oAjax.send();
+	// 4.接收返回
+	oAjax.onreadystatechange = function() {
+		// oAjax.readyState // 浏览器和服务器，进行到哪一步
+		if (oAjax.readyState == 4) { // 读取完成
+			if (oAjax.status == 200) { // 读取成功
+				fnSucc(oAjax.responseText);
+			} else { // 读取失败
+				if (fnFaild) {
+					fnFaild(oAjax.status);
+				}
+			}
 		}
-		return new XMLHttpRequest();
 	}
 }
