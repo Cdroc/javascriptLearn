@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Cities</title>
+		<style type="text/css">
+			body {
+				font-family: helvetica, arial, sans-serif;
+				background-color: #fff;
+				color: #000;
+			}
+			table {
+				margin: auto;
+				border: 1px solid #699;
+			}
+			caption {
+				margin: auto;
+				padding: .2em;
+				font-size: 1.2em;
+				font-weight: bold;
+			}
+			th {
+				font-weight: normal;
+				font-style: italic;
+				text-align: left;
+				border: 1px dotted #699;
+				background-color: #9cc;
+				color: #000;
+			}
+			th, td {
+				width: 10em;
+				padding: .5em;
+			}
+			tr:nth-child(odd) {
+				background-color: #fff;
+			}
+			tr:nth-child(even) {
+				background-color: #ffc;
+			}
+			tr:hover {
+				font-weight: bold;
+			}
+		</style>
+		<script>
+			function stripeTables() {
+				if (!document.getElementsByTagName) return false;
+				var tables = document.getElementsByTagName("table");
+				var odd, rows;
+				for (var i = tables.length - 1; i >= 0; i--) {
+					odd = false;
+					rows = tables[i].getElementsByTagName("tr");
+					for (var j = rows.length - 1; j >= 0; j--) {
+						if (odd == true) {
+							rows[j].style.backgroundColor = "#ffc";
+							odd = false;
+						} else {
+							odd = true;
+						}
+					};
+				};
+			}
+
+			function highlightRows() {
+				if (!document.getElementsByTagName) return false;
+				var rows = document.getElementsByTagName("tr");
+				for (var i = rows.length - 1; i >= 0; i--) {
+					rows[i].onmouseover = function() {
+						this.style.fontWeight = "bold";
+					}
+					rows[i].onmouseout = function() {
+						this.style.fontWeight = "normal";
+					}
+				};
+			}
+
+			// 为element元素附加类别theclass
+			function addClass(element, theclass) {
+				if (!element.className) {
+					element.className = theclass;
+				} else {
+					var newClassName = element.className;
+					newClassName += " ";
+					newClassName += theclass;
+					element.className = newClassName;
+				}
+			}
+
+			// 为tag标签附加类别theclass // 要用getNextElement、addClass
+			function styleElementSiblings(tag, theclass) {
+				if (!document.getElementsByTagName) return false;
+				var elems = document.getElementsByTagName(tag);
+				var elem = null;
+				for (var i = elems.length - 1; i >= 0; i--) {
+					elem = getNextElement(elems.nextSibling);
+					addClass(elem, theclass);
+				};
+			}
+
+			window.onload = highlightRows;
+		</script>
+	</head>
+	<body>
+		<table>
+			<caption>Itinerary</caption>
+			<thead>
+				<tr>
+					<th>When</th>
+					<th>Where</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>June 9th</td>
+					<td>Portland, <abbr title="Oregon">OR</abbr></td>
+				</tr>
+				<tr>
+					<td>June 10th</td>
+					<td>Seattle, <abbr title="Washington">WA</abbr></td>
+				</tr>
+				<tr>
+					<td>June 12th</td>
+					<td>Sacramento, <abbr title="California">CA</abbr></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

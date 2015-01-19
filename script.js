@@ -53,3 +53,37 @@ function ajax(url, fnSucc, fnFaild) {
 		}
 	}
 }
+
+// 获取下一个元素node
+function getNextElement(node) {
+	if (node.nodeType == 1) {
+		return node;
+	}
+	if (node.nextSibling) {
+		return getNextElement(node.nextSibling);
+	}
+	return null;
+}
+
+// 为element元素附加类别theclass
+function addClass(element, theclass) {
+	if (!element.className) {
+		element.className = theclass;
+	} else {
+		var newClassName = element.className;
+		newClassName += " ";
+		newClassName += theclass;
+		element.className = newClassName;
+	}
+}
+
+// 为tag标签附加类别theclass // 要用自定义的getNextElement、addClass
+function styleElementSiblings(tag, theclass) {
+	if (!document.getElementsByTagName) return false;
+	var elems = document.getElementsByTagName(tag);
+	var elem = null;
+	for (var i = elems.length - 1; i >= 0; i--) {
+		elem = getNextElement(elems[i].nextSibling);
+		addClass(elem, theclass);
+	};
+}

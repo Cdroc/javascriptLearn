@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>CSS DOM</title>
+		<style type="text/css">
+			.intro {
+				font-weight: bold;
+			}
+		</style>
+		<script>
+			function styleHeaderSibling() {
+				if (!document.getElementsByTagName) return false;
+				var headers = document.getElementsByTagName("h1");
+				var elem = null;
+				for (var i = 0; i < headers.length; i++) {
+					elem = getNextElement(headers[i].nextSibling);
+					elem.style.fontWeight = "bold";
+					elem.style.fontSize = "1.2em";
+				}
+			}
+			// 获取下一个元素
+			function getNextElement(node) {
+				if (node.nodeType == 1) {
+					return node;
+				}
+				if (node.nextSibling) {
+					return getNextElement(node.nextSibling);
+				}
+				return null;
+			}
+
+			
+
+			// 为element元素附加类别theclass
+			function addClass(element, theclass) {
+				if (!element.className) {
+					element.className = theclass;
+				} else {
+					var newClassName = element.className;
+					newClassName += " ";
+					newClassName += theclass;
+					element.className = newClassName;
+				}
+			}
+
+			// 为tag标签附加类别theclass // 要用getNextElement、addClass
+			function styleElementSiblings(tag, theclass) {
+				if (!document.getElementsByTagName) return false;
+				var elems = document.getElementsByTagName(tag);
+				var elem = null;
+				for (var i = elems.length - 1; i >= 0; i--) {
+					elem = getNextElement(elems[i].nextSibling);
+					addClass(elem, theclass);
+				};
+			}
+
+			window.onload = function() {
+				styleElementSiblings("h1", "intro");
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Hold the front page</h1>
+		<p>This first paragraph leads you in.</p>
+		<p>Now you get the nitty-gritty of the story.</p>
+		<p>The most important information is delivered first.</p>
+		<h1>Extra! Extra!</h1>
+		<p>Further developments are unfolding.</p>
+		<p>You can read all about it here.</p>
+	</body>
+</html>
