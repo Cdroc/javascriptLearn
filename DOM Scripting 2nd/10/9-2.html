@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <script type="text/javascript">
+            function positionMessage() {
+                if (!document.getElementById) return false;
+                if (!document.getElementById("message")) return false;
+                var elem = document.getElementById("message");
+                elem.style.position = "absolute";
+                elem.style.left = "50px";
+                elem.style.top = "100px";
+            }
+            // 在interval时间内移动元素elementID到(final_x, final_y)
+            function moveMessage(elementID, final_x, final_y, interval) {
+                if (!document.getElementById) return false;
+                if (!document.getElementById(elementID)) return false;
+                var elem = document.getElementById(elementID);
+                var xpos = parseInt(elem.style.left);
+                var ypos = parseInt(elem.style.top);
+                if (xpos == final_x && ypos == final_y) return true;
+                if (xpos < final_x) xpos++;
+                if (xpos > final_x) xpos--;
+                if (ypos < final_y) ypos++;
+                if (ypos > final_y) ypos--;
+                elem.style.left = xpos + "px";
+                elem.style.top = ypos + "px";
+                var repeat = "moveMessage('"+elementID+"', "+final_x+", "+final_y+", "+interval+")";
+                movement = setTimeout(repeat, interval);
+            }
+            window.onload = function() {
+                positionMessage();
+                moveMessage("message", 200, 100, 30);
+            }
+        </script>
+    </head>
+    <body>
+        <p id="message">Whee!</p>
+    </body>
+</html>

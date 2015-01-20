@@ -6,7 +6,7 @@ createTextNode
 appendChild
 insertBefore	-- parentElement.insertBefore(newElement, targetElement);
 				-- targetElement.parentNode.insertBefore(newElement, targetElement);
-nextSibing		-- 下一个兄弟元素
+nextSibling		-- 下一个兄弟元素
 
 xhtml文档不会执行document.write，忽略innerHTML
 

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <script type="text/javascript">
+            function positionMessage() {
+                if (!document.getElementById) return false;
+                if (!document.getElementById("message")) return false;
+                var elem = document.getElementById("message");
+                elem.style.position = "absolute";
+                elem.style.left = "50px";
+                elem.style.top = "100px";
+                movement = setTimeout("moveMessage()", 3000);
+            }
+            function moveMessage() {
+                if (!document.getElementById) return false;
+                if (!document.getElementById("message")) return false;
+                var elem = document.getElementById("message");
+                elem.style.left = "200px";
+            }
+            window.onload = positionMessage;
+        </script>
+    </head>
+    <body>
+        <p id="message">Whee!</p>
+    </body>
+</html>
