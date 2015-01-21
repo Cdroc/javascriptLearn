@@ -77,7 +77,7 @@ function addClass(element, theclass) {
 	}
 }
 
-// 为tag标签附加类别theclass // 要用自定义的getNextElement、addClass
+// 为tag标签附加类别theclass // 要用自定义的getNextElement及addClass函数
 function styleElementSiblings(tag, theclass) {
 	if (!document.getElementsByTagName) return false;
 	var elems = document.getElementsByTagName(tag);
@@ -123,4 +123,32 @@ function moveElement(elementID, final_x, final_y, interval) {
     elem.style.top = ypos + "px";
     var repeat = "moveElement('"+elementID+"', "+final_x+", "+final_y+", "+interval+")";
     elem.movement = setTimeout(repeat, interval);
+}
+
+// 创建灰度图片
+function createGSCanvas(imgElement) {
+    // 如果浏览器不支持<canvas>就返回null
+    if (!Modernizr.canvas) return null;
+    var canvas = document.createElement("canvas");
+    canvas.width = imgElement.width;
+    canvas.height = imgElement.height;
+
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(imgElement, 0, 0);
+
+    // 注意：getImageData只能操作与脚本位于同一个域中的图片
+    // 建议在本地创建wamp服务，把文件放入wamp的www文件夹内
+    // 在浏览器地址栏输入http://localhost/???.html
+    var c = ctx.getImageData(0, 0, imgElement.width, imgElement.height);
+    for (var i = c.height - 1; i >= 0; i--) {
+        for (var j = c.width - 1; j >= 0; j--) {
+            var x = (i * 4) * c.width + (j * 4);
+            var r = c.data[x];
+            var g = c.data[x + 1];
+            var b = c.data[x + 2];
+            c.data[x] = c.data[x + 1] = c.data[x + 2] = (g + r + b) / 3;
+        };
+    };
+    ctx.putImageData(c, 0, 0, 0, 0, c.width, c.height);
+    return canvas.toDataURL();
 }
