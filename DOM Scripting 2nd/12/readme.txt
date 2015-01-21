@@ -1,0 +1,1 @@
+window.location.href -- 获取当前网址
